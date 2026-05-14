@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Certify</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/certify.png}">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <header th:replace="~{components/header :: header}">
+    </header>
+    <main class="flex flex-col lg:flex-row justify-between gap-2 items-center p-10 lg:p-14">
+        <section class="lg:w-1/2 flex flex-col justify-start items-start gap-1">
+            <h1 class="text-xl lg:text-3xl text-black font-bold">Verify Certificates <br/><span class="text-blue-500">Instantly &amp; Securely</span></h1>
+            <p class="text-sm lg:text-md">Search and validate academic certificates using UID or Course Code in seconds. Our encrypted database ensures absolute data integrity. </p>
+        </section>
+        <section></section>
+    </main>
+    <footer th:replace="~{components/footer :: footer}">
+    </footer>
+</body>
+</html>
