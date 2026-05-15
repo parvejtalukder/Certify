@@ -15,31 +15,15 @@
         <h1 class="text-3xl font-bold text-center">Admin Login</h1>
         <p class="text-center text-gray-500 mt-2 mb-8">Sign in to Admin Portal</p>
         <form th:action="@{/login}" method="post" class="space-y-4">
-            <input name="email" type="email" placeholder="Email address" class="input input-bordered w-full rounded-xl" required>
-
-            <input name="password"
-                   type="password"
-                   placeholder="Password"
-                   class="input input-bordered w-full rounded-xl"
-                   required>
-
-            <button type="submit"
-                    class="btn bg-black text-white w-full rounded-xl">
-                Login
-            </button>
-
+            <input name="username" type="text" placeholder="username" class="input input-bordered w-full rounded-xl" required>
+            <input name="password" type="password" placeholder="Password" class="input input-bordered w-full rounded-xl" required>
+            <button type="submit" class="btn bg-black text-white w-full rounded-xl">Login</button>
         </form>
-
-        <p class="text-center text-sm text-gray-500 mt-6">
-            Forgot password?
+        <p class="text-center text-sm text-gray-500 mt-6">Forgot password?
             <a th:href="@{/forgot-password}" class="text-blue-600">Reset it</a>
         </p>
-
     </div>
-
 </main>
-
 <footer th:replace="~{components/footer :: footer}"></footer>
-
 </body>
 </html>
