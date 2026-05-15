@@ -35,9 +35,22 @@
             </ul>
           </div>
           <div class="navbar-end">
-            <!-- <a thif th:href="@{/dashboard}" class="btn bg-blue-500 rounded-3xl text-white">Admin Login</a> -->
-            <a th:href="@{/login}" class="btn bg-blue-500 rounded-3xl text-white">Admin Login</a>
-          </div>
+
+    <!-- NOT LOGGED IN -->
+    <a th:if="${session.userId == null}"
+       th:href="@{/login}"
+       class="btn bg-blue-500 rounded-3xl text-white">
+        Admin Login
+    </a>
+
+    <!-- LOGGED IN (ADMIN DASHBOARD) -->
+    <a th:if="${session.userId != null}"
+       th:href="@{/admin}"
+       class="btn bg-green-500 rounded-3xl text-white">
+        Admin Dashboard
+    </a>
+
+</div>
         </div>
     </header>
 </body>

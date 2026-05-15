@@ -8,15 +8,18 @@ public class Certificate {
 
     @Id
     private String id;
-    private String studentName;  
+    private String studentName;
     private String studentId;
-    private String course;       
-    private String grade;        
-    private String issueDate;    
-    private String issuer; 
+    private String course;
+    private String grade;
+    private String issueDate;
+    private String issuer;
 
-    Certificate(String studentName, String studentId, String course, String grade, String issueDate, String issuer) {
-        // this.id = id;
+    public Certificate() {
+    }
+
+    public Certificate(String studentName, String studentId, String course,
+        String grade, String issueDate, String issuer) {
         this.studentName = studentName;
         this.studentId = studentId;
         this.course = course;
@@ -24,9 +27,9 @@ public class Certificate {
         this.issueDate = issueDate;
         this.issuer = issuer;
     }
-    
+
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
@@ -34,7 +37,7 @@ public class Certificate {
     }
 
     public String getStudentName() {
-        return this.studentName;
+        return studentName;
     }
 
     public void setStudentName(String studentName) {
@@ -42,7 +45,7 @@ public class Certificate {
     }
 
     public String getStudentId() {
-        return this.studentId;
+        return studentId;
     }
 
     public void setStudentId(String studentId) {
@@ -50,7 +53,7 @@ public class Certificate {
     }
 
     public String getCourse() {
-        return this.course;
+        return course;
     }
 
     public void setCourse(String course) {
@@ -58,7 +61,7 @@ public class Certificate {
     }
 
     public String getGrade() {
-        return this.grade;
+        return grade;
     }
 
     public void setGrade(String grade) {
@@ -66,7 +69,7 @@ public class Certificate {
     }
 
     public String getIssueDate() {
-        return this.issueDate;
+        return issueDate;
     }
 
     public void setIssueDate(String issueDate) {
@@ -74,11 +77,10 @@ public class Certificate {
     }
 
     public String getIssuer() {
-        return this.issuer;
+        return issuer;
     }
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
     }
-
 }

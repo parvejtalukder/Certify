@@ -1,8 +1,9 @@
 package com.pht.certify.controller;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.pht.certify.model.Admin;
 import com.pht.certify.model.Certificate;
@@ -14,11 +15,9 @@ public class MongoController {
 
     private final CertificateRepo certificateRepo;
     private final UserRepo userRepo; 
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MongoController(CertificateRepo certificateRepo, UserRepo userRepo, PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+    public MongoController(CertificateRepo certificateRepo, UserRepo userRepo) {
         this.certificateRepo = certificateRepo;
         this.userRepo = userRepo;
     }
@@ -26,13 +25,14 @@ public class MongoController {
     @GetMapping("/certificate/{id}")
     public ResponseEntity<?> getById(@PathVariable String id) {
 
-        Certificate certificate = certificateRepo.findById(id).orElse(null);
-            if (certificate == null) {
-                return ResponseEntity.status(404).body("Not found");
-            }
-        return ResponseEntity.ok(certificate);
+        Optional<Certificate> certificate = certificateRepo.findById(id);
 
-    }
+        if (certificate.isEmpty()) {
+            return ResponseEntity.status(404).body("Not found");
+        }
+
+        return ResponseEntity.ok(certificate.get());
+    }    
 
     @PostMapping("/add-certificate")
     public ResponseEntity<String> addCertificate(@RequestBody Certificate certificate) {
@@ -49,12 +49,27 @@ public class MongoController {
     @PostMapping("/add-user")
     public ResponseEntity<String> addUser(@RequestBody Admin admin) {
         try {
+        
+            if (userRepo.findByUsername(admin.getUsername()).isPresent()) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Username already exists");
+            }
+
+            if (userRepo.findByEmail(admin.getEmail()).isPresent()) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Email already exists");
+            }
+
             if (admin.getRole() == null || admin.getRole().isEmpty()) {
                 admin.setRole("admin");
             }
-            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+
             userRepo.save(admin);
+
             return ResponseEntity.ok("User created successfully with role: " + admin.getRole());
+
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)

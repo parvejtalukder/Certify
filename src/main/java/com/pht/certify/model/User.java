@@ -1,5 +1,6 @@
 package com.pht.certify.model;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -8,7 +9,9 @@ public class User {
     @Id
     private String id;
     private String name;
+    @Indexed(unique = true)
     private String username;
+    @Indexed(unique = true)
     private String email;
     private String image;
     private String password;
@@ -60,6 +63,14 @@ public class User {
 
     public String getEmail() {
         return this.email;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return this.id;
     }
 
 
