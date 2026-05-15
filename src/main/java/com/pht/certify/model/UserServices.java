@@ -15,13 +15,14 @@ public class UserServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Optional<Admin> user = userRepo.findByUsername(username);
-
         if (user.isPresent()) {
-            // return user.get();
             var usrObj = user.get();
-            return User.builder().username(usrObj.getUsername()).password(usrObj.getPassword()).build();
+            return User.builder()
+                .username(usrObj.getUsername())
+                .password(usrObj.getPassword())
+                .authorities("ROLE_" + usrObj.getRole().toUpperCase())
+                .build();
         } else {
             throw new UsernameNotFoundException("User not found: " + username);
         }

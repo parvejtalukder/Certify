@@ -2,6 +2,7 @@ package com.pht.certify.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.pht.certify.model.Admin;
 import com.pht.certify.model.Certificate;
@@ -12,10 +13,12 @@ import com.pht.certify.repository.UserRepo;
 public class MongoController {
 
     private final CertificateRepo certificateRepo;
-    private final UserRepo userRepo;
+    private final UserRepo userRepo; 
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MongoController(CertificateRepo certificateRepo, UserRepo userRepo) {
+    public MongoController(CertificateRepo certificateRepo, UserRepo userRepo, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.certificateRepo = certificateRepo;
         this.userRepo = userRepo;
     }
@@ -46,6 +49,7 @@ public class MongoController {
     @PostMapping("/add-user")
     public ResponseEntity<String> addUser(@RequestBody Admin admin) {
         try {
+            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
             userRepo.save(admin);
             return ResponseEntity.ok("User created successfully");
         } catch (Exception e) {
@@ -54,4 +58,5 @@ public class MongoController {
                     .body("Failed to create user: " + e.getMessage());
         }
     }
+
 }
