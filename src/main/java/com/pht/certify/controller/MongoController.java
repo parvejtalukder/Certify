@@ -49,9 +49,12 @@ public class MongoController {
     @PostMapping("/add-user")
     public ResponseEntity<String> addUser(@RequestBody Admin admin) {
         try {
+            if (admin.getRole() == null || admin.getRole().isEmpty()) {
+                admin.setRole("admin");
+            }
             admin.setPassword(passwordEncoder.encode(admin.getPassword()));
             userRepo.save(admin);
-            return ResponseEntity.ok("User created successfully");
+            return ResponseEntity.ok("User created successfully with role: " + admin.getRole());
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -4,6 +4,9 @@ public class Admin extends User {
 
     private String institution;
 
+    public Admin() {
+    }
+
     public void setInst(String inst) {
         this.institution = inst;
     }
