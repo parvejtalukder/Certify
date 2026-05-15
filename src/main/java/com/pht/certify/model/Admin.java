@@ -2,25 +2,24 @@ package com.pht.certify.model;
 
 public class Admin extends User {
 
-    private boolean active;
+    private String institution;
 
-    public Admin(String name, String username, String email, String image) {
+    public void setInst(String inst) {
+        this.institution = inst;
+    }
+
+    public String getInst() {
+        return this.institution;
+    }
+
+    public Admin(String name, String username, String email, String image, String inst) {
         setName(name);
         setUsername(username);
         setEmail(email);
         setImage(image);
-        this.active = true;
+        setInst(inst);
+        setRole("admin");
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public boolean canManageCertificates() {
-        return active;
-    }
-
-    public void deactivate() {
-        this.active = false;
-    }
+    
 }

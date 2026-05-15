@@ -4,44 +4,42 @@
     <title>Login | Certify</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="icon" type="image/png" th:href="@{/images/certify.png}">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+
 <body class="max-w-6xl mx-auto min-h-screen flex flex-col">
-    <header th:replace="~{components/loginhead :: loginhead}"></header>
-    <main class="flex-1 flex items-center justify-center px-4 py-10">
-        <div class="w-full max-w-md bg-white shadow-xl rounded-3xl p-8 border border-gray-100">
-            <h1 class="text-3xl font-bold text-center text-gray-800">Admin Portal</h1>
-            <p class="text-center text-gray-500 mt-2 mb-8">Sign in to manage certificates.</p>
-            <form method="post" th:action="@{/login/action}" th:object="${User}" class="space-y-4">
-                <div>
-                    <label class="label">
-                        <span class="label-text font-medium">Email Address</span>
-                    </label>
-                    <input th:field="*{email}" type="email" name="email" placeholder="user@example.com" class="input input-bordered w-full rounded-xl" required>
-                </div>
-                <div>
-                    <label class="label">
-                        <span class="label-text font-medium">Password</span>
-                    </label>
-                    <input th:field="*{password}" type="password" name="password" placeholder="••••••••" class="input input-bordered w-full rounded-xl" required>
-                </div>
-                <div class="flex justify-between items-center text-sm">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" class="checkbox checkbox-sm">
-                        <span>Remember me</span>
-                    </label>
-                    <a href="forgot-password" class="text-blue-600 hover:underline"> Forgot password?</a>
-                </div>
-                <button type="submit" class="btn bg-black text-white hover:bg-gray-800 rounded-xl w-full">Sign In To Dashboard</button>
-            </form>
-            <!-- <div class="divider my-6">OR</div> -->
-            <!-- <button class="btn btn-outline rounded-xl w-full">Continue with Google</button> -->
-            <p class="text-center text-sm text-gray-500 mt-6">Don't have an account?
-                <a th:href="@{/register}" class="text-blue-600 font-medium hover:underline">Create one</a>
-            </p>
-        </div>
-    </main>
-    <footer th:replace="~{components/footer :: footer}"></footer>
+<header th:replace="~{components/loginhead :: loginhead}"></header>
+<main class="flex-1 flex items-center justify-center px-4 py-10">
+    <div class="w-full max-w-md bg-white shadow-xl rounded-3xl p-8 border">
+        <h1 class="text-3xl font-bold text-center">Admin Login</h1>
+        <p class="text-center text-gray-500 mt-2 mb-8">Sign in to Admin Portal</p>
+        <form th:action="@{/login}" method="post" class="space-y-4">
+            <input name="email" type="email" placeholder="Email address" class="input input-bordered w-full rounded-xl" required>
+
+            <input name="password"
+                   type="password"
+                   placeholder="Password"
+                   class="input input-bordered w-full rounded-xl"
+                   required>
+
+            <button type="submit"
+                    class="btn bg-black text-white w-full rounded-xl">
+                Login
+            </button>
+
+        </form>
+
+        <p class="text-center text-sm text-gray-500 mt-6">
+            Forgot password?
+            <a th:href="@{/forgot-password}" class="text-blue-600">Reset it</a>
+        </p>
+
+    </div>
+
+</main>
+
+<footer th:replace="~{components/footer :: footer}"></footer>
+
 </body>
 </html>
