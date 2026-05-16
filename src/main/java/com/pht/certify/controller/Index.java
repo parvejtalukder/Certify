@@ -1,16 +1,26 @@
 package com.pht.certify.controller;
 import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.pht.certify.datas.Datas;
-// import com.pht.certify.datas.Datas;
 import com.pht.certify.main.Main;
-
+import com.pht.certify.model.Stat;
+import com.pht.certify.services.CertificateCount;
+import com.pht.certify.services.LogService;
+import com.pht.certify.services.UserCount;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class Index {
+
+    @Autowired
+    private CertificateCount certificateCount;
+    @Autowired
+    private LogService logService;
+    @Autowired
+    private UserCount userCount;
 
     @GetMapping("/")
     public String theIndex(Model mdl)  {
@@ -26,7 +36,6 @@ public class Index {
         work.add(new Datas("Enter UID", "Input the unique identifier or course code provided on the certificate."));
         work.add(new Datas("Fetch", "Our system searches through our verified records in milliseconds."));
         work.add(new Datas("Result", "Receive an official verification status with detailed student and course data."));
-
 
         mdl.addAttribute("main", main);
         mdl.addAttribute("feature", arr);
@@ -45,13 +54,30 @@ public class Index {
         model.addAttribute("currRole", role);
         model.addAttribute("currUser", user);
         model.addAttribute("currImage", image);
-        model.addAttribute("active", role);
+        model.addAttribute("active", "dashboard");
 
         if (role == null || (!"admin".equals(role) && !"super".equals(role))) {
             return "redirect:/login";
         }
-        model.addAttribute("content", "admin/index :: content");
-        return "admin";
+
+        ArrayList <Stat> dataArr = new ArrayList<>();
+        long logCnt = logService.getLogCount();
+        long certCnt = certificateCount.getCertificateCount();
+        long userCnt = userCount.getUserCount();
+        Stat stat = new Stat();
+        stat.setCount(certCnt);
+        stat.setDesc("Total Certificates");
+        dataArr.add(stat);
+        Stat usr = new Stat();
+        usr.setCount(userCnt);
+        usr.setDesc("Total Users");
+        dataArr.add(usr);
+        Stat logs = new Stat();
+        logs.setCount(logCnt);
+        logs.setDesc("Total Logs");
+        dataArr.add(logs);
+        model.addAttribute("dataArr", dataArr);
+        return "admin/index";
     }
 
 }

@@ -11,7 +11,51 @@
 <div th:replace="~{components/sidebar :: sidebar}"></div>
 <div class="flex-1">
     <div th:replace="~{components/adminhead :: adminhead}"></div>
-    
+<main class="bg-transparent flex justify-center items-center py-20">
+
+<div class="w-full max-w-3xl bg-white rounded-2xl p-8">
+
+    <h1 class="text-2xl font-bold text-center mb-6">Add New User</h1>
+
+    <form th:action="@{/admin/users/add}" method="post" class="space-y-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <input name="name" type="text" placeholder="Full Name"
+                   class="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+
+            <input name="username" type="text" placeholder="Username"
+                   class="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+
+            <input name="email" type="email" placeholder="Email"
+                   class="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+
+            <input name="image" type="text" placeholder="Image URL"
+                   class="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+
+            <input name="password" type="password" placeholder="Password"
+                   class="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+
+            <input name="institution" type="text" placeholder="Institution"
+                   class="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+            
+            <input name="role" type="text" value="admin" placeholder="role"
+                   class="border hidden p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"/>
+
+        </div>
+
+        <button class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">
+            Add User
+        </button>
+
+    </form>
+
+    <p th:if="${errorMessage}" class="mt-4 text-red-600 text-center" th:text="${errorMessage}"></p>
+    <p th:if="${successMessage}" class="mt-4 text-green-600 text-center" th:text="${successMessage}"></p>
+
+</div>
+
+</main>
 </div>
 <script src="/scripts.js"></script>
 </body>
