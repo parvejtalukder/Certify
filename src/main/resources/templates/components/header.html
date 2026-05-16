@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Header</title>
-</head>
-<body>
-    <header class="bg-white" th:fragment="header">
+<header class="bg-white" th:fragment="header">
         <div class="navbar bg-base-100 shadow-sm">
           <div class="navbar-start">
             <div class="dropdown">
@@ -35,23 +29,8 @@
             </ul>
           </div>
           <div class="navbar-end">
-
-    <!-- NOT LOGGED IN -->
-    <a th:if="${session.userId == null}"
-       th:href="@{/login}"
-       class="btn bg-blue-500 rounded-3xl text-white">
-        Admin Login
-    </a>
-
-    <!-- LOGGED IN (ADMIN DASHBOARD) -->
-    <a th:if="${session.userId != null}"
-       th:href="@{/admin}"
-       class="btn bg-green-500 rounded-3xl text-white">
-        Admin Dashboard
-    </a>
-
-</div>
+          <a th:if="${session.userId == null}" th:href="@{/login}" class="btn bg-blue-500 rounded-3xl text-white">Admin Login</a>
+          <a th:if="${session.userId != null}" th:href="@{/admin}" class="btn bg-blue-500 rounded-3xl text-white">Admin Dashboard</a>
+        </div>
         </div>
     </header>
-</body>
-</html>

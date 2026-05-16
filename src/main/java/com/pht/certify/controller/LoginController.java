@@ -51,20 +51,20 @@ public class LoginController {
                     session.setAttribute("userId", admin.getId());
                     session.setAttribute("username", admin.getUsername());
                     session.setAttribute("role", admin.getRole());
-                return "redirect:/admin/";
+                    session.setAttribute("image", admin.getImage());
+                return "redirect:/admin";
             }
         } 
         model.addAttribute("main", main);
-    model.addAttribute("active", "login");
-    // model.addAttribute("error", "Invalid username or password");
+        model.addAttribute("active", "login");
         model.addAttribute("error", "Invalid username or password");
         return "login";
     }
 
     @GetMapping("/logout")
-public String logout(HttpSession session) {
-    session.invalidate();
-    return "redirect:/";
-}
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
     
 }

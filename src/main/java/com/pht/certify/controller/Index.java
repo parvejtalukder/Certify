@@ -7,6 +7,8 @@ import com.pht.certify.datas.Datas;
 // import com.pht.certify.datas.Datas;
 import com.pht.certify.main.Main;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class Index {
 
@@ -31,6 +33,25 @@ public class Index {
         mdl.addAttribute("workway", work);
         mdl.addAttribute("active", "home");
         return "index";
+    }
+
+    @GetMapping("/admin") 
+    public String adminIndx(Model model, HttpSession session) {
+
+        String role = (String) session.getAttribute("role");
+        String user = (String) session.getAttribute("username");
+        String image = (String) session.getAttribute("image");
+
+        model.addAttribute("currRole", role);
+        model.addAttribute("currUser", user);
+        model.addAttribute("currImage", image);
+        model.addAttribute("active", role);
+
+        if (role == null || (!"admin".equals(role) && !"super".equals(role))) {
+            return "redirect:/login";
+        }
+        model.addAttribute("content", "admin/index :: content");
+        return "admin";
     }
 
 }

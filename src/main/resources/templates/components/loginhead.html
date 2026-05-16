@@ -1,40 +1,33 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Header</title>
-</head>
-<body>
-    <header class="bg-white" th:fragment="loginhead">
-        <div class="navbar bg-base-100 shadow-sm">
-          <div class="navbar-start">
-            <div class="dropdown">
-              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
-              </div>
-              <ul
-                tabindex="-1"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li><a href="/">Home</a></li>
-                <li>
-                  <a href="/verify">Verify</a>
-                </li>
-                <li><a href="/statistics">Statistics</a></li>
-              </ul>
-            </div>
-            <a href="/" class="btn btn-ghost text-xl font-bold text-blue-500" th:text="${main.siteName}"></a>
+
+ <header class="bg-white" th:fragment="loginhead">
+    <div class="navbar bg-base-100 shadow-sm">
+      <div class="navbar-start">
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
           </div>
-          <div class="navbar-end hidden lg:flex">
-            <ul class="menu menu-horizontal px-1 space-x-2">
-              <li th:classappend="${active == 'home'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl" ><a href="/" class="rounded-3xl">Home</a></li>
-              <li th:classappend="${active == 'verify'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl">
-                <a class="rounded-3xl" href="/verify">Verify</a>
-              </li>
-              <li th:classappend="${active == 'statistics'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl"><a href="/statistics" class="rounded-3xl">Statistics</a></li>
-              <!-- <li></li> -->
-              <li th:if="${active == 'login'}" th:classappend="${active == 'login'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl"><a href="/login" class="rounded-3xl">Login</a></li>
-            </ul>
-          </div>
+          <ul
+            tabindex="-1"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            <li><a href="/">Home</a></li>
+            <li>
+              <a href="/verify">Verify</a>
+            </li>
+            <li><a href="/statistics">Statistics</a></li>
+          </ul>
         </div>
-    </header>
-</body>
-</html>
+        <a href="/" class="btn btn-ghost text-xl font-bold text-blue-500" th:text="${main.siteName}"></a>
+      </div>
+      <div class="navbar-end hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 space-x-2">
+          <li th:classappend="${active == 'home'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl" ><a href="/" class="rounded-3xl">Home</a></li>
+          <li th:classappend="${active == 'verify'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl">
+            <a class="rounded-3xl" href="/verify">Verify</a>
+          </li>
+          <li th:classappend="${active == 'statistics'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl"><a href="/statistics" class="rounded-3xl">Statistics</a></li>
+          <!-- <li></li> -->
+          <li th:if="${active == 'login'}" th:classappend="${active == 'login'} ? 'bg-blue-200 rounded-3xl' : ''" class="hover:bg-blue-200 rounded-3xl"><a href="/login" class="rounded-3xl">Login</a></li>
+        </ul>
+      </div>
+    </div>
+</header>

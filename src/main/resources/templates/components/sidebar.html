@@ -1,0 +1,19 @@
+<div th:fragment="sidebar">
+    <div id="sidebarOverlay"
+         class="fixed inset-0 bg-black/50 hidden md:hidden z-40"></div>
+    <aside id="sidebar"
+           class="fixed md:static z-50 inset-y-0 left-0
+                  w-64 h-screen bg-blue-500 text-white p-4
+                  transform -translate-x-full md:translate-x-0
+                  transition-transform duration-300">
+        <h2 class="text-xl font-bold mb-6 bg-white p-3 rounded-md text-blue-500">Admin Panel</h2>
+        <ul class="-space-y-1">
+            <li><a href="/admin" class="block hover:bg-blue-700 p-2 rounded">Dashboard</a></li>
+            <li><a href="/admin/users" class="block hover:bg-blue-700 p-2 rounded">Users</a></li>
+            <li><a href="/admin/certificates" class="block hover:bg-blue-700 p-2 rounded">Certificates</a></li>
+            <li><a href="/admin/settings" class="block hover:bg-blue-700 p-2 rounded">Settings</a></li>
+            <li><a href="/logout" class="block text-red-600 bg-white rounded-xl hover:text-red-900 my-4 p-2">Logout</a></li>
+        </ul>
+    </aside>
+
+</div>
