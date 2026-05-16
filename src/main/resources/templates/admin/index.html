@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<section th:fragment="content" class="m-3 lg:m-5">
+<head>
+    <title>Admin Portal | Certify</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/certify.png}">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex">
+<div th:replace="~{components/sidebar :: sidebar}"></div>
+<div class="flex-1">
+    <div th:replace="~{components/adminhead :: adminhead}"></div>
+    <section class="m-3 lg:m-5">
     <p class="text-blue-500">
         Welcome <span class="underline" th:text="${currUser}"></span>
     </p>
@@ -15,4 +26,7 @@
         </div>
     </div>
 </section>
+</div>
+<script src="/scripts.js"></script>
+</body>
 </html>
