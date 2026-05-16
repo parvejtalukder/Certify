@@ -3,7 +3,7 @@
     <button id="menuToggle"
             class="md:hidden text-2xl px-2">☰
     </button>
-    <h1 th:text="${main.siteName}" class="font-bold text-blue-500"></h1>
+    <a th:text="${main.siteName}" class="font-bold text-blue-500" href="/"></a>
     <div class="text-sm">
         <span th:text="${currUser}"></span> | <span th:text="${currRole}"></span>
     </div>

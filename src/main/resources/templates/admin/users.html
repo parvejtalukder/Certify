@@ -1,20 +1,82 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Admin Portal | Certify</title>
+    <title>Users | Certify Admin Portal</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="icon" type="image/png" th:href="@{/images/certify.png}">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="flex">
-<div th:replace="~{components/sidebar :: sidebar}"></div>
-    <div class="flex-1">
+<body class="flex min-h-screen text-base-content font-sans">
+    <div th:replace="~{components/sidebar :: sidebar}"></div>
+    <div class="flex-1 flex flex-col min-w-0">
         <div th:replace="~{components/adminhead :: adminhead}"></div>
-        <main>
-            
+        <main class="p-6 md:p-8 space-y-6 flex-1">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold tracking-tight">Manage Users</h1>
+                <a class="text-3xl font-bold tracking-tight" href="/admin/users/add">+</a>
+            </div>
+            <div class="card bg-white shadow-sm border border-base-300 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <thead class="bg-blue-300/50">
+                            <tr>
+                                <th class="w-16">ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}" class="hover:bg-base-200/50 transition-colors">
+                                <td th:text="${user.id}" class="font-mono text-sm opacity-70"></td>
+                                <td th:text="${user.name}" class="font-medium"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.role}"></td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(users)}">
+                                <td colspan="3" class="text-center py-8 text-base-content/50">
+                                    No users found in database.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${totalPages > 1}" class="flex justify-center mt-6">
+                <div class="join border border-base-300 shadow-xs">
+                    <a th:if="${currentPage > 0}" 
+                       th:href="@{/admin/users(page=${currentPage - 1})}" 
+                       class="join-item btn btn-md btn-ghost">
+                        Prev
+                    </a>
+                    <button th:if="${currentPage == 0}" 
+                            class="join-item btn btn-md btn-disabled text-base-content/30" disabled>
+                        Prev
+                    </button>
+                    <block th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <button th:if="${currentPage == i}" 
+                                class="join-item btn btn-md btn-primary" 
+                                th:text="${i + 1}">1</button>
+                        <a th:if="${currentPage != i}" 
+                           th:href="@{/admin/users(page=${i})}" 
+                           class="join-item btn btn-md btn-ghost" 
+                           th:text="${i + 1}">1</a>
+                    </block>
+                    <a th:if="${currentPage + 1 < totalPages}" 
+                       th:href="@{/admin/users(page=${currentPage + 1})}" 
+                       class="join-item btn btn-md btn-ghost">
+                        Next
+                    </a>
+                    <button th:if="${currentPage + 1 == totalPages}" 
+                            class="join-item btn btn-md btn-disabled text-base-content/30" disabled>
+                        Next
+                    </button>
+                </div>
+            </div>
         </main>
     </div>
+
     <script src="/scripts.js"></script>
 </body>
 </html>
