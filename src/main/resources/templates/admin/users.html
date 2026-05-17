@@ -13,7 +13,7 @@
         <div th:replace="~{components/adminhead :: adminhead}"></div>
         <main class="p-6 md:p-8 space-y-6 flex-1">
             <div class="flex items-center justify-between">
-                <h1 class="text-2xl font-bold tracking-tight">Manage Users</h1>
+                <h1 class="text-2xl font-bold tracking-tight">Manage Users (<span th:text="${currRole}"></span>)</h1>
                 <a class="text-3xl font-bold tracking-tight" href="/admin/users/add">+</a>
             </div>
             <div class="card bg-white shadow-sm border border-base-300 overflow-hidden">
@@ -25,6 +25,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Institution</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +34,7 @@
                                 <td th:text="${user.name}" class="font-medium"></td>
                                 <td th:text="${user.email}"></td>
                                 <td th:text="${user.role}"></td>
+                                <td th:text="${user.institution} ?: 'Certify Inc.'" ></td>
                             </tr>
                             <tr th:if="${#lists.isEmpty(users)}">
                                 <td colspan="3" class="text-center py-8 text-base-content/50">
@@ -50,10 +52,7 @@
                        class="join-item btn btn-md btn-ghost">
                         Prev
                     </a>
-                    <button th:if="${currentPage == 0}" 
-                            class="join-item btn btn-md btn-disabled text-base-content/30" disabled>
-                        Prev
-                    </button>
+                    <button th:if="${currentPage == 0}" class="join-item btn btn-md btn-disabled text-base-content/30" disabled>Prev</button>
                     <block th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
                         <button th:if="${currentPage == i}" 
                                 class="join-item btn btn-md btn-primary" 

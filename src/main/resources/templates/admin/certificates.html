@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Certificates | Certify Admin Portal</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/certify.png}">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex">
+<div th:replace="~{components/sidebar :: sidebar}"></div>
+<div class="flex-1">
+    <div th:replace="~{components/adminhead :: adminhead}"></div>
+        <main class="p-6 md:p-8 space-y-6 flex-1">
+            <div class="flex items-center justify-between">
+                <h1 th:if="${currRole == 'super'}" class="text-2xl font-bold tracking-tight">Manage Certificates (<span th:text="${currRole}"></span>)</h1>
+                <h1 th:if="${currRole == 'admin'}" class="text-2xl font-bold tracking-tight">Manage Certificates (<span th:text="${currRole}"></span>)</h1>
+                <a class="text-3xl font-bold tracking-tight" href="/admin/certificate/upload">+</a>
+            </div>
+            <div th:if="${successMessage}" class="alert alert-success shadow">
+                <span th:text="${successMessage}"></span>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-error shadow">
+                <span th:text="${errorMessage}"></span>
+            </div>
+            <div class="card bg-white shadow-sm border border-base-300 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <thead class="bg-blue-300/50">
+                            <tr>
+                                <th class="w-16">ID</th>
+                                <th>Name</th>
+                                <th>Student ID</th>
+                                <th>Course</th>
+                                <th>Grade</th>
+                                <th>Issuer</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cert : ${certificates}" class="hover:bg-base-200/50 transition-colors">
+                                <td th:text="${cert.id}" class="font-mono text-sm opacity-70"></td>
+                                <td th:text="${cert.studentName}" class="font-medium"></td>
+                                <td th:text="${cert.studentId}"></td>
+                                <td th:text="${cert.course}"></td>
+                                <td th:text="${cert.grade}"></td>
+                                <td th:text="${cert.issuer}"></td>
+                                <td><form th:action="@{/admin/certificate/delete/{id}(id=${cert.id})}" method="post">
+                                    <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                                </form></td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(certificates)}">
+                                <td th:if="${currRole == 'admin'}" colspan="6" class="text-center py-8 text-base-content/50">
+                                    No certificates found in database by you.
+                                </td>
+                                <td th:if="${currRole == 'super'}" colspan="6" class="text-center py-8 text-base-content/50">
+                                    No certificates found in database.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${totalPages > 1}" class="flex justify-center mt-6">
+                <div class="join border border-base-300 shadow-xs">
+                    <a th:if="${currentPage > 0}" 
+                       th:href="@{/admin/certificate(page=${currentPage - 1})}" 
+                       class="join-item btn btn-md btn-ghost">
+                        Prev
+                    </a>
+                    <button th:if="${currentPage == 0}" class="join-item btn btn-md btn-disabled text-base-content/30" disabled>Prev</button>
+                    <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <button th:if="${currentPage == i}" class="join-item btn btn-md btn-primary" th:text="${i + 1}"></button>
+                        <a th:if="${currentPage != i}" th:href="@{/admin/certificate(page=${i})}" class="join-item btn btn-md btn-ghost" th:text="${i + 1}"></a>
+                    </span>
+                    <a th:if="${currentPage + 1 < totalPages}" 
+                       th:href="@{/admin/certificate(page=${currentPage + 1})}" 
+                       class="join-item btn btn-md btn-ghost">
+                        Next
+                    </a>
+                    <button th:if="${currentPage + 1 == totalPages}" 
+                            class="join-item btn btn-md btn-disabled text-base-content/30" disabled>
+                        Next
+                    </button>
+                </div>
+            </div>
+        </main>
+</div>
+<script src="/scripts.js"></script>
+</body>
+</html>

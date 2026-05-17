@@ -50,9 +50,12 @@ public class Index {
         String role = (String) session.getAttribute("role");
         String user = (String) session.getAttribute("username");
         String image = (String) session.getAttribute("image");
+        String email = (String) session.getAttribute("email");
+        // System.out.print(email);
 
         model.addAttribute("currRole", role);
         model.addAttribute("currUser", user);
+        model.addAttribute("currEmail", email);
         model.addAttribute("currImage", image);
         model.addAttribute("active", "dashboard");
 
@@ -61,21 +64,47 @@ public class Index {
         }
 
         ArrayList <Stat> dataArr = new ArrayList<>();
-        long logCnt = logService.getLogCount();
-        long certCnt = certificateCount.getCertificateCount();
-        long userCnt = userCount.getUserCount();
-        Stat stat = new Stat();
-        stat.setCount(certCnt);
-        stat.setDesc("Total Certificates");
-        dataArr.add(stat);
-        Stat usr = new Stat();
-        usr.setCount(userCnt);
-        usr.setDesc("Total Users");
-        dataArr.add(usr);
-        Stat logs = new Stat();
-        logs.setCount(logCnt);
-        logs.setDesc("Total Logs");
-        dataArr.add(logs);
+        // Stat stat = new Stat();
+        long log, cert, usrr = 0;
+        if (role.equals("super")) {
+            long logCnt = logService.getLogCount();
+            long certCnt = certificateCount.getCertificateCount();
+            long certAll = certificateCount.getCertificateCount();
+            long userCnt = userCount.getUserCount();
+            Stat All = new Stat();
+            All.setCount(certAll);
+            All.setDesc("All Certificates");
+            dataArr.add(All);
+            Stat stat = new Stat();
+            stat.setCount(certCnt);
+            stat.setDesc("My Certificates");
+            dataArr.add(stat);
+            Stat usr = new Stat();
+            usr.setCount(userCnt);
+            usr.setDesc("Total Users");
+            dataArr.add(usr);
+            Stat logs = new Stat();
+            logs.setCount(logCnt);
+            logs.setDesc("Total Logs");
+            dataArr.add(logs);
+            cert = certCnt;
+            log = logCnt;
+            usrr = userCnt;
+        } else {
+            long certCnt = certificateCount.getCertificateCount();
+            Stat stat = new Stat();
+            stat.setCount(certCnt);
+            stat.setDesc("My Certificates");
+            dataArr.add(stat);
+            cert = certCnt;
+            log = 0;
+            usrr = 0;
+            // long logCnt = logService.getLogCount();
+            // Stat logs = new Stat();
+            // logs.setCount(logCnt);
+            // logs.setDesc("Total Logs");
+            // dataArr.add(logs);
+        }
         model.addAttribute("dataArr", dataArr);
         return "admin/index";
     }

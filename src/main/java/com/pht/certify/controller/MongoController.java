@@ -48,17 +48,12 @@ public class MongoController {
 
     @PostMapping("/add-certificate")
     public ResponseEntity<String> addCertificate(@RequestBody Certificate certificate, HttpSession session) {
-        if(!session.getAttribute("role").equals("super") || !session.getAttribute("role").equals("admin")) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to save certificate");
-        }
         try {
             certificateRepo.save(certificate);
             logService.save(
                 "ADD_CERTIFICATE",
                 "Added certificate UID: " + certificate.getId(),
-                LocalDateTime.now(),
+                LocalDateTime.now().toString(),
                 certificate.getIssuer()
             );
             return ResponseEntity.ok("Certificate saved successfully");

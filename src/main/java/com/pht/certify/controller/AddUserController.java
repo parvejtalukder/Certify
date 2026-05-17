@@ -19,7 +19,7 @@ public class AddUserController {
 @GetMapping("/admin/users/add")
 public String addUserPage(Model model, HttpSession session) {
     String role = (String) session.getAttribute("role");
-    if (!role.equals("super")) {
+    if (!"super".equals(role)) {
         return "redirect:/admin";
     }
     model.addAttribute("active", "users");

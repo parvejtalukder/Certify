@@ -47,9 +47,10 @@ public class LoginController {
         if (adminOpt.isPresent()) {
             Admin admin = adminOpt.get();
             if (admin.getPassword().equals(password)) {
-                model.addAttribute("admin", admin);
+                    model.addAttribute("admin", admin);
                     session.setAttribute("userId", admin.getId());
                     session.setAttribute("username", admin.getUsername());
+                    session.setAttribute("email", admin.getEmail());
                     session.setAttribute("role", admin.getRole());
                     session.setAttribute("image", admin.getImage());
                 return "redirect:/admin";

@@ -14,18 +14,20 @@ public class Certificate {
     private String grade;
     private String issueDate;
     private String issuer;
+    private String issuerEmail;
 
     public Certificate() {
     }
 
     public Certificate(String studentName, String studentId, String course,
-        String grade, String issueDate, String issuer) {
+        String grade, String issueDate, String issuer, String issuerEmail) {
         this.studentName = studentName;
         this.studentId = studentId;
         this.course = course;
         this.grade = grade;
         this.issueDate = issueDate;
         this.issuer = issuer;
+        this.issuerEmail = issuerEmail;
     }
 
     public String getId() {
@@ -82,5 +84,12 @@ public class Certificate {
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
+    }
+    public String getIssuerEmail() {
+        return issuerEmail;
+    }
+
+    public void setIssuerEmail(String issuerEmail) {
+        this.issuerEmail = issuerEmail;
     }
 }

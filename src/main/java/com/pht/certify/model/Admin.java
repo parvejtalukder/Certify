@@ -7,20 +7,20 @@ public class Admin extends User {
     public Admin() {
     }
 
-    public void setInst(String inst) {
-        this.institution = inst;
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
-    public String getInst() {
+    public String getInstitution() {
         return this.institution;
     }
 
-    public Admin(String name, String username, String email, String image, String inst) {
+    public Admin(String name, String username, String email, String image, String institution) {
         setName(name);
         setUsername(username);
         setEmail(email);
         setImage(image);
-        setInst(inst);
+        setInstitution(institution);
         setRole("admin");
     }
 

@@ -15,11 +15,11 @@
     <p class="text-blue-500">
         Welcome <span class="underline" th:text="${currUser}"></span>
     </p>
-    <div class="py-2 grid grid-cols-1 lg:grid-cols-3 gap-2">
+    <div class="py-2 grid grid-cols-1 gap-2" th:classappend="${currRole == 'super'} ? 'lg:grid-cols-2' : 'lg:grid-cols-3'">
         <div th:each="item : ${dataArr}" class="p-4 bg-white border border-blue-500 rounded-lg shadow">
-            <h2 class="font-semibold text-lg" th:text="${item.desc}"></h2>
+            <h2  th:classappend="${item.count == 0} ? 'text-gray-600': 'text-blue-600'" class="font-semibold text-lg" th:text="${item.desc}"></h2>
             <div class="flex justify-between items-center gap-2">
-                <p class="text-3xl font-bold text-center text-blue-600" th:text="${item.count}"></p>
+                <p th:classappend="${item.count == 0} ? 'text-gray-600': 'text-blue-600'" class="text-3xl font-bold text-center" th:text="${item.count}"></p>
                 <img src="https://www.svgrepo.com/show/4092/files.svg" alt="Logo" class="w-10">
             </div>
             <p class="text-gray-300 text-sm">*Lifetime</p>

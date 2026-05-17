@@ -11,11 +11,11 @@ public class LogService {
     @Autowired
     private LogRepo logRepo;
 
-    public void save(String action, String message, LocalDateTime timestamp, String userId) {
+    public void save(String action, String message, String time, String userId) {
         Log log = new Log();
         log.setAction(action);
         log.setId(userId);
-        log.setTimestamp(timestamp);
+        log.setTime(time);
         log.setMessage(message);
         logRepo.save(log);
     }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Certificates | Certify Admin Portal</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/certify.png}">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex">
+<div th:replace="~{components/sidebar :: sidebar}"></div>
+<div class="flex-1">
+    <div th:replace="~{components/adminhead :: adminhead}"></div>
+    <section class="m-3 lg:m-5 py-20 space-y-4">
+        <div th:if="${successMessage}" class="alert max-w-xl mx-auto alert-success shadow">
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="alert max-w-xl mx-auto alert-error shadow">
+            <span th:text="${errorMessage}"></span>
+        </div>
+        <div id="crt" th:if="${certificate != null}" class="card bg-white shadow-sm border border-blue-500 p-4 space-y-2 px-20 -scroll max-w-xl mx-auto">
+            <div class="flex flex-col justify-center items-center -gap-2">
+                <h2 class="text-lg font-bold">Uploaded Certificate</h2>
+                 <div class="pt-2">
+                <span class="badge badge-primary">
+                    Certificate ID: <span th:text="${certificateId}"></span>
+                </span>
+            </div>
+            </div>
+            <div class="grid grid-cols-2 text-md">
+            <p><b>ID:</b> <span th:text="${certificate.id}"></span></p>
+            <p><b>Name:</b> <span th:text="${certificate.studentName}"></span></p>
+            <p><b>Student ID:</b> <span th:text="${certificate.studentId}"></span></p>
+            <p><b>Course:</b> <span th:text="${certificate.course}"></span></p>
+            <p><b>Grade:</b> <span th:text="${certificate.grade}"></span></p>
+            <p><b>Issuer:</b> <span th:text="${certificate.issuer}"></span></p>
+            </div>
+        </div>
+        <form id="frm" method="post" action="/admin/certificate/upload" enctype="multipart/form-data" class="w-full max-w-xl mx-auto bg-base-100 border border-base-300 shadow-lg rounded-xl p-6 space-y-4">
+            <div class="text-center">
+                <h2 class="text-xl font-bold">Upload Certificate PDF</h2>
+                <p class="text-sm opacity-70">Select a PDF file to extract and save certificate data</p>
+            </div>
+            <div class="border-2 border-dashed border-base-300 rounded-xl p-6 text-center hover:border-primary transition">
+                <input type="file" name="file" accept="application/pdf" class="file-input file-input-primary w-full max-w-xs mx-auto">
+                <p class="text-xs opacity-60 mt-2">Only PDF files are supported</p>
+            </div>
+            <div class="flex items-center justify-between gap-3 pt-2">
+                <div class="text-xs opacity-60">Upload will auto-extract: name, ID, course, grade</div>
+                <button type="submit" class="btn btn-primary px-6">Upload & Process</button>
+            </div>
+        </form>
+    </section>
+</div>
+<script src="/scripts.js"></script>
+<script>
+    const myban = document.getElementById("crt");
+    const myfrm = document.getElementById("frm");
+    if (myban) {
+        setTimeout(() => {
+            myban.classList.add("hidden");
+            myfrm.classList.remove("hidden");
+        }, 5000);
+    } 
+</script>
+</body>
+</html>

@@ -19,10 +19,11 @@ public class DashboardAccess {
     @Autowired
     private UserRepo userRepo;
 
+
     @GetMapping("/admin/users")
     public String manageUser(Model model, @RequestParam(defaultValue = "0") int page, HttpSession session) {
         String role = (String) session.getAttribute("role");
-        if (!role.equals("super")) {
+        if (role == null || !role.equals("super")) {
             return "redirect:/admin";
         }
         try {
@@ -33,7 +34,6 @@ public class DashboardAccess {
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", userPage.getTotalPages());
 
-            // String role = (String) session.getAttribute("role");
             String user = (String) session.getAttribute("username");
             String image = (String) session.getAttribute("image");
 
@@ -45,6 +45,11 @@ public class DashboardAccess {
             model.addAttribute("errorMessage", "Error While Visiting!");
         }
         return "admin/users";
+    }
+
+    @GetMapping("/admin/certificate/upload")
+    public String UploadCertificate(Model model) {
+        return "/admin/upload";
     }
 
 }

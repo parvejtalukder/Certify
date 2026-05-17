@@ -11,9 +11,20 @@ public class Log {
     private String action;   
     private String message;  
     private LocalDateTime timestamp;
+    private String time;
     private String userId;
 
-    // Log() {
+    // Log(){
+
+    // }
+
+    // Log(
+    // String action, 
+    // String message,String time, String userId) {
+    //     this.setAction(action);
+    //     this.setMessage(message);
+    //     this.setTime(time);
+    //     this.setUserId(userId);
     // }
 
     public void setId(String id) {
@@ -54,6 +65,13 @@ public class Log {
 
     public String getUserId() {
         return this.userId;
+    }
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTime() {
+        return this.time;
     }
 
 
