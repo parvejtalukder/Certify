@@ -24,25 +24,23 @@ public class DashboardAccess {
     public String manageUser(Model model, @RequestParam(defaultValue = "0") int page, HttpSession session) {
         String role = (String) session.getAttribute("role");
         if (role == null || !role.equals("super")) {
-            return "redirect:/admin";
+            return "redirect:/admin?error=unauthorized";
         }
         try {
+            if (page < 0) page = 0;
             int userPerPage = 5;
             Pageable pageable = PageRequest.of(page, userPerPage);
             Page<Admin> userPage = userRepo.findAll(pageable);
             model.addAttribute("users", userPage.getContent());
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", userPage.getTotalPages());
-
-            String user = (String) session.getAttribute("username");
-            String image = (String) session.getAttribute("image");
-
             model.addAttribute("currRole", role);
-            model.addAttribute("currUser", user);
-            model.addAttribute("currImage", image);
+            model.addAttribute("currUser", session.getAttribute("username"));
+            model.addAttribute("currImage", session.getAttribute("image"));
             model.addAttribute("active", "users");
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "Error While Visiting!");
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "Error While Visiting: " + e.getMessage());
         }
         return "admin/users";
     }

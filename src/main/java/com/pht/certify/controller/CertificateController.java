@@ -82,28 +82,30 @@ public class CertificateController {
     }
 
     @GetMapping("/admin/certificate")
-    public String Certificate(Model model, @RequestParam(defaultValue = "0") int page, HttpSession session) {
+    public String certificate(Model model,  @RequestParam(defaultValue = "0") int page, HttpSession session) {
 
         String role = (String) session.getAttribute("role");
-        String email = (String) session.getAttribute("email ");
-        if (role == null) { 
+        String email = (String) session.getAttribute("email"); // FIXED
+
+        if (role == null || (!role.equals("admin") && !role.equals("super"))) {
             return "redirect:/admin";
         }
+
         try {
             int certificatePerPage = 5;
             Pageable pageable = PageRequest.of(page, certificatePerPage);
             Page<Certificate> certificatesPage;
             if ("admin".equals(role)) {
+                if (email == null) return "redirect:/admin";
                 certificatesPage = certificateRepo.findByIssuerEmail(email, pageable);
-            } else if ("super".equals(role)) {
-                certificatesPage = certificateRepo.findAll(pageable);
             } else {
-                return "redirect:/admin";
+                certificatesPage = certificateRepo.findAll(pageable);
             }
             model.addAttribute("certificates", certificatesPage.getContent());
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", certificatesPage.getTotalPages());
         } catch (Exception e) {
+            e.printStackTrace();
             model.addAttribute("errorMessage", e.getMessage());
         }
         model.addAttribute("active", "certificates");
@@ -157,7 +159,7 @@ public class CertificateController {
     public String deleteCertificate(@PathVariable String id, HttpSession session, RedirectAttributes redirectAttributes) {
         String role = (String) session.getAttribute("role");
         String email = (String) session.getAttribute("email");
-        if (!"super".equals(role) || !"admin".equals(role)) {
+        if (!"super".equals(role) && !"admin".equals(role)) {
             return "redirect:/admin";
         }
         try {
@@ -186,7 +188,7 @@ public class CertificateController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Delete failed: " + e.getMessage());
         }
-        return "redirect:/admin/certificate/";
+        return "redirect:/admin/certificate";
     }
 
 }

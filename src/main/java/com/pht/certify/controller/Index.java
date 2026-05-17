@@ -69,7 +69,7 @@ public class Index {
         if (role.equals("super")) {
             long logCnt = logService.getLogCount();
             long certCnt = certificateCount.getCertificateCount();
-            long certAll = certificateCount.getCertificateCount();
+            long certAll = certificateCount.getAllCertificateCount();
             long userCnt = userCount.getUserCount();
             Stat All = new Stat();
             All.setCount(certAll);
@@ -83,10 +83,10 @@ public class Index {
             usr.setCount(userCnt);
             usr.setDesc("Total Users");
             dataArr.add(usr);
-            Stat logs = new Stat();
-            logs.setCount(logCnt);
-            logs.setDesc("Total Logs");
-            dataArr.add(logs);
+            // Stat logs = new Stat();
+            // logs.setCount(logCnt);
+            // logs.setDesc("Total Logs");
+            // dataArr.add(logs);
             cert = certCnt;
             log = logCnt;
             usrr = userCnt;
