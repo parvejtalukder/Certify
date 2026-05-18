@@ -46,3 +46,12 @@ In an increasingly digital world, certificate management has become critical for
 - **Version Control**: Git with GitHub
 - **Build**: Spring Boot Maven Plugin with Maven Wrapper (mvnw)
 - **Testing**: JUnit 5 with Spring Boot Test
+
+## Use Cases
+- **Educational Institutions**: Issue course completion and achievement certificates
+- **Training Organizations**: Manage professional certification programs
+- **Corporate Training**: Track employee development certifications
+- **Professional Bodies**: Issue and verify professional credentials
+
+## License
+This project is part of a university initiative and is managed by @parvejtalukder.
